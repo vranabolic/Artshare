@@ -46,7 +46,8 @@ class MessageController extends Controller
      */
     public function show($id)
     {
-        //
+        $messages = Message::paginate();
+        return view('messages.show',compact('message'));
     }
 
     /**

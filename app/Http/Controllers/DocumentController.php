@@ -46,7 +46,8 @@ class DocumentController extends Controller
      */
     public function show($id)
     {
-        //
+        /$documents = CDocument::paginate();
+        return view('documents.show',compact('document'));
     }
 
     /**

@@ -46,7 +46,8 @@ class WorkplaceController extends Controller
      */
     public function show($id)
     {
-        //
+        $workplaces = Country::paginate();
+        return view('workplaces.show',compact('workplace'));
     }
 
     /**

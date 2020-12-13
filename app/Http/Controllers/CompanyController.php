@@ -46,7 +46,8 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        //
+        $company = Company::paginate();
+        return view('companies.show',compact('company'));
     }
 
     /**

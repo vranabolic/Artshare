@@ -46,7 +46,8 @@ class FollowerController extends Controller
      */
     public function show($id)
     {
-        //
+        $followers = Follower::paginate();
+        return view('followers.show',compact('follower'));
     }
 
     /**

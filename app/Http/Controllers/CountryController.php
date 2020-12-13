@@ -48,8 +48,8 @@ class CountryController extends Controller
      */
     public function show($id)
     {
-        $country = Country::find($id);
-        dd($country);
+        $countries = Country::paginate();
+        return view('countries.show',compact('country'));
     }
 
     /**

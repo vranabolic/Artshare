@@ -19,32 +19,32 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{{route('#')}}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/users">Users</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/countries">Countries</a>
+        <a class="nav-link" href="{{route('countries.index')}}">Countries</a>
       </li><li class="nav-item">
-        <a class="nav-link" href="companies">Companies</a>
+        <a class="nav-link" href="{{route('companies.index')}}">Companies</a>
       </li><li class="nav-item">
       <li class="nav-item">
-        <a class="nav-link" href="/workplaces">Workplaces</a>
+        <a class="nav-link" href="{{route('workplaces.index')}}">Workplaces</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/user_comments">User_Comments</a>
+        <a class="nav-link" href="{{route('user_comments.index')}}">User Comments</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/followers">Followers</a>
+        <a class="nav-link" href="{{route('followers.index')}}">Followers</a>
       </li>
-        <a class="nav-link" href="/roles">Roles</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/documents">Documents</a>
+        <a class="nav-link" href="{{route('roles.index')}}">Roles</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/messages">Messages</a>
+        <a class="nav-link" href="{{route('documents.index')}}">Documents</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{route('messages.index')}}">Messages</a>
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>

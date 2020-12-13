@@ -46,8 +46,8 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $role = Role::find($id);
-        dd($role);
+        $roles = Role::paginate();
+        return view('roles.show',compact('role'));
     }
 
     /**

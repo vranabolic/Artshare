@@ -46,7 +46,8 @@ class User_CommentController extends Controller
      */
     public function show($id)
     {
-        //
+        $user_comments = User_Comment::paginate();
+        return view('user_comments.show',compact('user_comment'));
     }
 
     /**

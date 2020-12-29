@@ -9,22 +9,19 @@ use App\Http\Controllers\WorkplaceController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\User_CommentController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\UserController;
 
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::middleware(['auth'])->group(function () {
+
+    /* homepage, primjetiti ->name('home') na kraju */
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('home');
+
+
+
 Route::resource('countries', CountryController::class);
 Route::resource('roles', RoleController::class);
 Route::resource('companies', CompanyController::class);
@@ -33,5 +30,7 @@ Route::resource('documents', DocumentController::class);
 Route::resource('followers', FollowerController::class);
 Route::resource('user_comments', User_CommentController::class);
 Route::resource('messages', MessageController::class);
-
+Route::resource('users',UserController::class);
+});
+require __DIR__.'/auth.php';
 

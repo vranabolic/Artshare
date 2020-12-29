@@ -20,6 +20,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'country_id',
+        'role_id'
     ];
 
     /**
@@ -29,15 +31,24 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        
     ];
+    public function role() {return $this->belongsTo(Role::class); }
 
+    public function country() {return $this->belongsTo(Country::class); }
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
+
+    public function followers(){
+        return $this->belongsToMany(User::class,'followers','user_id');
+    }
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function isAdmin() { return $this->role_id === RoleEnum::ADMIN; } 
+    public function isUser() { return $this->role_id === RoleEnum::USER; } 
+    public function isGuest() { return $this->role_id === RoleEnum::GUEST; } 
 }

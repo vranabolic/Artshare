@@ -13,7 +13,7 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        $documents = CDocument::paginate();
+        $documents = Document::paginate();
         return view('documents.index',compact('documents'));
     }
 
@@ -46,7 +46,7 @@ class DocumentController extends Controller
      */
     public function show($id)
     {
-        /$documents = CDocument::paginate();
+        $documents = Document::paginate();
         return view('documents.show',compact('document'));
     }
 

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Role;
 use App\Models\Country;
 
-class CountryController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +16,8 @@ class CountryController extends Controller
      */
     public function index()
     {
-        //
-        $countries = Country::paginate();
-        return view('countries.index',compact('countries'));
+        $user = User::with(['role','country'])->paginate();
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -26,7 +27,7 @@ class CountryController extends Controller
      */
     public function create()
     {
-        return view('countries.create');
+        return view('users.create');
     }
 
     /**
@@ -38,11 +39,8 @@ class CountryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|unique:countries|max:255',
-            'native_name' => 'required|unique:countries|max:255',
+            'name'=>'required|unique:users|max:255'
         ]);
-        $country = Country::create($validated);
-        return view('countries.show', compact('country'));
     }
 
     /**
@@ -53,8 +51,9 @@ class CountryController extends Controller
      */
     public function show($id)
     {
-        $countries = Country::paginate();
-        return view('countries.show',compact('country'));
+        $user = User::with(['role','country'])->findOrFail($id);
+        $followers = $user->followers()->paginate();
+        return view('users.show',compact('user','followers'));
     }
 
     /**
@@ -65,8 +64,12 @@ class CountryController extends Controller
      */
     public function edit($id)
     {
-        $country = Country::findOrFail($id);
-        return view('countries.edit', compact('country'));
+        $user = User::findOrFail($id);
+        $roles = Role::pluck('name','id');
+        $countries = Country::pluck('name','id');
+        return view('users.edit',
+        compact('user','roles','countries')
+    );
     }
 
     /**
@@ -80,14 +83,16 @@ class CountryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|max:255',
-            
+            'email' => 'required|max:255',
+            'country_id' => 'required',
+            'role_id' => 'required'
         ]);
 
-        $country = Country::findOrFail($id);
-        $country->fill($validated);
-        $country->save();
+        $user = User::findOrFail($id);
+        $user->fill($validated);
+        $user->save();
 
-        return view('countries.show', compact('country'));
+        return redirect()->route('users.show', ['user' => $user->id]);
     }
 
     /**
@@ -99,9 +104,9 @@ class CountryController extends Controller
     public function destroy($id)
     {
         
-        Country::destroy($id);
+        User::destroy($id);
 
-        
-        return redirect()->route('countries.index');
+       
+        return redirect()->route('users.index');
     }
 }
